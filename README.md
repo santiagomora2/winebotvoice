@@ -13,5 +13,5 @@ Un chatbot que te recomienda vinos
 2. Correr la  app
 
    ```
-   $ streamlit run app.py
+   $ streamlit run st_voicechat.py
    ```
