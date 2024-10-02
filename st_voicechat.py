@@ -68,10 +68,24 @@ def handle_question(question):
 
 def main():
 
+    bg='''
+    <style>
+    [data-testid="stAppViewContainer"]{
+    background-image: url("https://img.freepik.com/premium-photo/wine-wooden-table-background-blurred-wine-shop-with-bottles_191555-1126.jpg?w=1060");
+    bacjground-size: container;
+    }
+    [data-testid="stHeader"]{
+    background-color: rgba(0,0,0,0);
+    }
+    </style>
+    '''
+
+    st.markdown(bg, unsafe_allow_html = True)
+
     st.title("Asistente de Vinos")
 
     # Usar Módulo de streamlit Audio Recorder
-    audio_bytes = audio_recorder(text = 'Haz click para hablar')
+    audio_bytes = audio_recorder("Haz click para comenzar a hablar!")
     if audio_bytes:
 
         path = 'myfile.wav'
