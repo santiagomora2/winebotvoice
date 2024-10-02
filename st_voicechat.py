@@ -71,7 +71,7 @@ def main():
     st.title("Asistente de Vinos")
 
     # Usar Módulo de streamlit Audio Recorder
-    audio_bytes = audio_recorder()
+    audio_bytes = audio_recorder(text = 'Haz click para hablar')
     if audio_bytes:
 
         path = 'myfile.wav'
