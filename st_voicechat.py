@@ -72,7 +72,7 @@ def main():
     <style>
     [data-testid="stAppViewContainer"]{
     background-image: url("https://img.freepik.com/premium-photo/wine-wooden-table-background-blurred-wine-shop-with-bottles_191555-1126.jpg?w=1060");
-    background-size: container;
+    background-size: cover;
     }
     [data-testid="stMainBlockContainer"]{
     background-color: rgba(0,0,0,.5);
