@@ -72,8 +72,11 @@ def main():
     <style>
     [data-testid="stAppViewContainer"]{
     background-image: url("https://img.freepik.com/premium-photo/wine-wooden-table-background-blurred-wine-shop-with-bottles_191555-1126.jpg?w=1060");
-    bacjground-size: container;
+    background-size: container;
     }
+    [data-testid="stMainBlockContainer"]{
+    background-color: rgba(0,0,0,.5);
+    } 
     [data-testid="stHeader"]{
     background-color: rgba(0,0,0,0);
     }
@@ -85,7 +88,9 @@ def main():
     st.title("Asistente de Vinos")
 
     # Usar Módulo de streamlit Audio Recorder
-    audio_bytes = audio_recorder("Haz click para comenzar a hablar!")
+    audio_bytes = audio_recorder(text="Haz click para comenzar a hablar!",
+                                 recording_color="#ff0000",
+                                 neutral_color="#d3d3d3")
     if audio_bytes:
 
         path = 'myfile.wav'
