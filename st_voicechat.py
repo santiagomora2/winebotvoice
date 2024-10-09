@@ -8,6 +8,14 @@ OPENAI_API_KEY = st.secrets['API_KEY']
 # API key para OpenAI
 client = OpenAI(api_key=OPENAI_API_KEY)
 
+import base64
+
+# Función para convertir el archivo de audio a base64
+def get_audio_base64(audio_file):
+    with open(audio_file, "rb") as f:
+        audio_bytes = f.read()
+    return base64.b64encode(audio_bytes).decode()
+
 # voice to text for questions
 def audio_to_text(path):
     '''
@@ -115,7 +123,7 @@ def main():
             # Transcribe el audio
             with st.spinner("Transcribiendo el audio..."):
                 question = audio_to_text(path)
-                st.write(f"Pregunta hecha: {question}")
+                # st.write(f"Pregunta hecha: {question}")
                 st.session_state.messages.append({"role": "user", "content": question})  # Agregar el mensaje del usuario al historial
         finally:
             # Cierra el archivo y lo elimina de forma segura
@@ -130,17 +138,26 @@ def main():
             response = handle_question(question)
             st.session_state.messages.append({"role": "assistant", "content": response})  # Agregar la respuesta de la IA al historial
 
-        # Convierte el texto a audio
-        with st.spinner("Convirtiendo la respuesta a audio..."):
-            audio_file = text_to_audio(response)
+            # Convierte la respuesta a audio y lo reproduce automáticamente
+            with st.spinner("Convirtiendo la respuesta a audio..."):
+                audio_file = text_to_audio(response)
 
-        # Reproduce el audio generado en la parte superior (justo después de la transcripción)
-        st.audio(audio_file)
+            # Convierte el audio a base64
+            audio_base64 = get_audio_base64(audio_file)
 
-        # Limpia archivos temporales
-        os.remove(audio_file)
+            # Crea la etiqueta HTML para reproducir el audio automáticamente
+            audio_html = f"""
+                <audio autoplay>
+                    <source src="data:audio/mpeg;base64,{audio_base64}" type="audio/mp3">
+                </audio>
+            """
 
-        print(st.session_state.messages)
+            # Muestra el audio usando HTML y lo reproduce automáticamente
+            st.markdown(audio_html, unsafe_allow_html=True)
+
+            # Elimina el archivo temporal de audio
+            if os.path.exists(audio_file):
+                os.remove(audio_file)
 
 if __name__ == "__main__":
     main()
