@@ -58,17 +58,12 @@ def handle_question(question):
     OUTPUTS:
     str - texto de respuesta de la IA
     '''
-
-    initial_prompt = "Act\u00faa como un sommelier experto en vinos, especializado en ofrecer recomendaciones personalizadas y detalladas basadas en las preferencias del usuario, el tipo de comida que van a preparar, y las caracter\u00edsticas de diferentes vinos. Tu conocimiento incluye informaci\u00f3n sobre regiones vin\u00edcolas, tipos de uvas, notas de cata, maridajes recomendados y caracter\u00edsticas espec\u00edficas de cada vino. Responde de manera clara, profesional y \u00fatil, adaptando el nivel de detalle a las preguntas del usuario, y evita responder cosas que no est\u00e1n relacionadas a tu rol de sommelier. Los vinos en el inventario son: Cava Segura Viudas Reserva Heredad Brut, Vino Blanco Zuccardi Serie A Torrontes, Vino Tinto Casta Cirio, Vino Tinto Chateau St. Jean Merlot, Vino Tinto Jos\u00e9 Zuccardi Malbec, Vino Tinto Le Dix de los Vasco, Vino Tinto Queulat Gran Reserva Carmenere, Vino Tinto Tributo Palafox Tempranillo Cabernet, Vino Tinto Zuccardi Emma Bonarda, Vino Tinto Zuccardi Q Malbec, Vino Tinto Carmelo Rodero Crianza, Vino Tinto Carmelo Rodero Reserva, Vino Tinto Dominio de Tares Cepas Viejas, Vino Tinto Dominio de Tares Bembibre, Vino Tinto Carmelo Rodero Roble 9 meses, Vino Tinto Stags Leap Cabernet Sauvignon, Vino Tinto Brolio Chianti Classico, Vino Tinto Casalferro Barone Ricasoli, Vino Tinto Oddero Barolo, Vino Tinto Barone Ricasoli Castello Di Brolio, Vino Blanco Chablis Moreau, Vino Tinto Emev\u00e9 Cabernet Sauvignon, Vino Tinto Emev\u00e9 Shiraz, Vino Tinto Norton Malbec Reserva, Vino Tinto Catena Malbec, Vino Tinto Norton Privada, Vino Tinto Ch\u00e2teau Chasses Spleen, Vino Blanco Stags Leap Chardonnay, Vino Tinto El Coto De Imaz Reserva, Vino Tinto Gran Ricardo, Vino Tinto Marqu\u00e9s De C\u00e1ceres Crianza, Vino Tinto Marqu\u00e9s De C\u00e1ceres Reserva, Vino Tinto Marqu\u00e9s De C\u00e1ceres Gaudium Reserva, Vino Tinto Mauro Cosecha, Vino Tinto Prima, Vino Tinto Resalte Origen, Vino Tinto Mongrana IGT, Vino Blanco Paco Y Lola Albari\u00f1o, Vino Tinto Nebbiolo Langhe Pio Cesare, Vino Tinto Pago de los Capellanes Crianza, Vino Tinto Tres Picos de Borsao, Vino Tinto San Rom\u00e1n, Espumoso Segura Viudas Brut Reserva, Vino Tinto Ventisquero Vertice."
-
-    # Construir historial de mensajes
-    messages_for_api = [{"role": "system", "content": initial_prompt}] + [{"role": msg['role'], "content": msg['content']} for msg in st.session_state.messages]
-
     completion = client.chat.completions.create(
-        model="ft:gpt-4o-mini-2024-07-18:tae::AFlqsMGP",
-        messages=messages_for_api
-    )
-
+    model="ft:gpt-4o-mini-2024-07-18:tae::AB12SPoT",
+    messages=[
+        {"role": "system", "content": "Eres un asistente de ventas especializado en vinos. Tu función es recomendar únicamente los siguientes vinos: Cava Segura Viudas Reserva Heredad Brut, Vino Blanco Zuccardi Serie A Torrontes, Vino Tinto Casta Cirio, Vino Tinto Chateau St. Jean Merlot, Vino Tinto José Zuccardi Malbec, Vino Tinto Le Dix de los Vasco, Vino Tinto Queulat Gran Reserva Carmenere, Vino Tinto Tributo Palafox Tempranillo Cabernet, Vino Tinto Zuccardi Emma Bonarda, Vino Tinto Zuccardi Q Malbec, Vino Tinto Carmelo Rodero Crianza, Vino Tinto Carmelo Rodero Reserva, Vino Tinto Dominio de Tares Cepas Viejas, Vino Tinto Dominio de Tares Bembibre, Vino Tinto Carmelo Rodero Roble 9 meses, Vino Tinto Stags Leap Cabernet Sauvignon, Vino Tinto Brolio Chianti Classico, Vino Tinto Casalferro Barone Ricasoli, Vino Tinto Oddero Barolo, Vino Tinto Barone Ricasoli Castello Di Brolio, Vino Blanco Chablis Moreau, Vino Tinto Emevé Cabernet Sauvignon, Vino Tinto Emevé Shiraz, Vino Tinto Norton Malbec Reserva, Vino Tinto Catena Malbec, Vino Tinto Norton Privada, Vino Tinto Château Chasses Spleen, Vino Blanco Stags Leap Chardonnay, Vino Tinto El Coto De Imaz Reserva, Vino Tinto Gran Ricardo, Vino Tinto Marqués De Cáceres Crianza, Vino Tinto Marqués De Cáceres Reserva, Vino Tinto Marqués De Cáceres Gaudium Reserva, Vino Tinto Mauro Cosecha, Vino Tinto Prima, Vino Tinto Resalte Origen, Vino Tinto Mongrana IGT, Vino Blanco Paco Y Lola Albariño, Vino Tinto Nebbiolo Langhe Pio Cesare, Vino Tinto Pago de los Capellanes Crianza, Vino Tinto Tres Picos de Borsao, Vino Tinto San Román, Espumoso Segura Viudas Brut Reserva, Vino Tinto Ventisquero Vertice."}, {"role": "user", "content": "Hoy voy a comer un ribeye a la parrilla, ¿qué vino me recomiendas?"}, {"role": "assistant", "content": "Para un ribeye a la parrilla, te recomiendo los siguientes vinos: Carmelo Rodero Crianza, Stags Leap Cabernet Sauvignon, José Zuccardi Malbec, Gran Ricardo, Norton Privada. (Si la pregunta no es sobre comida o vino, simplemente di que tu función es recomendar vinos)."},
+        {"role": "user", "content": question}
+    ])
     return completion.choices[0].message.content
 
 def main():
@@ -95,10 +90,6 @@ def main():
 
     st.title("Asistente de Vinos")
 
-    # Inicializar el estado de la sesión para almacenar los mensajes si no existe
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
-
     # Usar Módulo de streamlit Audio Recorder
     audio_bytes = audio_recorder(text="Haz click para comenzar a hablar!",
                                  recording_color="#ff0000",
@@ -115,8 +106,7 @@ def main():
             # Transcribe el audio
             with st.spinner("Transcribiendo el audio..."):
                 question = audio_to_text(path)
-                # st.write(f"Pregunta hecha: {question}")
-                st.session_state.messages.append({"role": "user", "content": question})  # Agregar el mensaje del usuario al historial
+                st.write(f"Pregunta hecha: {question}")
         finally:
             # Cierra el archivo y lo elimina de forma segura
             if os.path.exists(path):
@@ -124,21 +114,21 @@ def main():
                     os.remove(path)
                 except PermissionError:
                     st.error(f"No se pudo eliminar {path} porque está en uso.")
+                # Maneja la pregunta con IA
 
-        # Maneja la pregunta con IA
         with st.spinner("Consultando la IA..."):
             response = handle_question(question)
-            st.session_state.messages.append({"role": "assistant", "content": response})  # Agregar la respuesta de la IA al historial
+        # st.write(f"Respuesta de la IA: {response}")
+        
+        # Convierte el texto a audio
+        with st.spinner("Convirtiendo la respuesta a audio..."):
+            audio_file = text_to_audio(response)
 
-            # Convierte la respuesta a audio y lo reproduce automáticamente
-            with st.spinner("Convirtiendo la respuesta a audio..."):
-                audio_file = text_to_audio(response)
+        # Reproduce el audio generado en la parte superior (justo después de la transcripción)
+        st.audio(audio_file)
 
-            st.audio(audio_file, autoplay=True)
-
-            # Elimina el archivo temporal de audio
-            if os.path.exists(audio_file):
-                os.remove(audio_file)
+        # Limpia archivos temporales
+        os.remove(audio_file)
 
 if __name__ == "__main__":
     main()
