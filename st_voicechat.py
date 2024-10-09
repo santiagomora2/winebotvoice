@@ -134,7 +134,7 @@ def main():
             with st.spinner("Convirtiendo la respuesta a audio..."):
                 audio_file = text_to_audio(response)
 
-            st.audio(audio_file)
+            st.audio(audio_file, autoplay=True)
 
             # Elimina el archivo temporal de audio
             if os.path.exists(audio_file):
