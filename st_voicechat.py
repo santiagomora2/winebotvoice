@@ -103,6 +103,7 @@ def main():
     audio_bytes = audio_recorder(text="Haz click para comenzar a hablar!",
                                  recording_color="#ff0000",
                                  neutral_color="#d3d3d3")
+    
     if audio_bytes:
 
         path = 'myfile.wav'
@@ -114,9 +115,12 @@ def main():
         try:
             # Transcribe el audio
             with st.spinner("Transcribiendo el audio..."):
-                question = audio_to_text(path)
+                try:
+                    question = audio_to_text(path)
+                    st.session_state.messages.append({"role": "user", "content": question})  # Agregar el mensaje del usuario al historial
+                except:
+                    st.error('No se pudo escuchar tu mensaje! \n Intenta hacer click en el micrófono, hablar cuando se ponga color rojo y, cuando dejes de hablar, automáticamente se procesará tu pregunta', icon="🚨")
                 # st.write(f"Pregunta hecha: {question}")
-                st.session_state.messages.append({"role": "user", "content": question})  # Agregar el mensaje del usuario al historial
         finally:
             # Cierra el archivo y lo elimina de forma segura
             if os.path.exists(path):
